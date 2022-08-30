@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        $category = Category::get();
+        return view('categories.index', compact('category'));
     }
 
     /**
@@ -23,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -32,9 +35,11 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $datos)
     {
-        //
+        $category = new Category($datos->validated());
+        $category->save();
+        return redirect()->route('categories.index')->with('status', 'Categoria registrada con exito');
     }
 
     /**
@@ -77,8 +82,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        // dd($request->name);
+        $category->delete();
+        return redirect()->route('categories.index')->with('status', 'Categoria eliminada con exito');
     }
 }

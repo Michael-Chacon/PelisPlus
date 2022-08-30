@@ -8,6 +8,7 @@
                 </title>
             </meta>
         </meta>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <link href="/css/app.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <script defer="" src="/js/app.js">
@@ -18,7 +19,7 @@
     <section class="container-fluid">
         <header>
             @include('partails.menu')
-            {{-- @include('partials.sessions') --}}
+            @include('partails.message')
         </header>
         <main class="py-3 px-3">
             @yield('content')
