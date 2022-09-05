@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateCategoryRequest;
-use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::get();
-        return view('categories.index', compact('category'));
+        return view('movies.index');
     }
 
     /**
@@ -26,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -35,11 +32,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoryRequest $datos)
+    public function store(Request $request)
     {
-        $category = new Category($datos->validated());
-        $category->save();
-        return redirect()->route('categories.index')->with('status', 'Categoria registrada con exito');
+        //
     }
 
     /**
@@ -59,11 +54,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        return view('categories.edit', [
-            'category' => $category,
-        ]);
+        //
     }
 
     /**
@@ -73,10 +66,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Category $category, CreateCategoryRequest $datos)
+    public function update(Request $request, $id)
     {
-        $category->update($datos->validated());
-        return redirect()->route('categories.index')->with('state', 'Categoria actulizada con éxito');
+        //
     }
 
     /**
@@ -85,10 +77,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        // dd($request->name);
-        $category->delete();
-        return redirect()->route('categories.index')->with('status', 'Categoria eliminada con exito');
+        //
     }
 }

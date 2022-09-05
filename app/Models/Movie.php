@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use App\Models\Movie;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Movie extends Model
 {
     protected $guarded = [];
     use HasFactory;
 
-    public function getRouteKeyName()
+    public function gerRouteKeyName()
     {
         return 'url';
     }
 
-    public function Movie()
+    public function Category()
     {
-        return $this->hasMany(Movie::class);
+        return $this->belongsTo(Category::class);
     }
 }

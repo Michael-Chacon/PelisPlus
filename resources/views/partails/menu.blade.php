@@ -18,7 +18,7 @@
 						<a class="nav-link" href="{{ route('categories.index') }}">Categorias</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Peliculas</a>
+						<a class="nav-link" href="{{ route('movies.index') }}">Peliculas</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Papelera</a>

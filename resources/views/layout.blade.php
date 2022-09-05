@@ -20,6 +20,7 @@
         <header>
             @include('partails.menu')
             @include('partails.message')
+            @include('partails.errores')
         </header>
         <main class="py-3 px-3">
             @yield('content')

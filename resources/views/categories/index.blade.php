@@ -15,7 +15,7 @@
 					@forelse($category as $categoria)
 						<tr>
 							<td><p>{{ $categoria->name }}</p></td>
-							<td><a href="#" class="link-primary"><i class="bi bi-pen tamaño-icono"></i></a></td>
+							<td><a href="{{ route('categories.edit', $categoria) }}" class="link-primary"><i class="bi bi-pen tamaño-icono"></i></a></td>
 							<td>
 								<form action="{{ route('categories.destroy', $categoria) }}" method="post">
 									@csrf @method('DELETE')
