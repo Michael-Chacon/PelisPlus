@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateMovieRequest;
+use App\Models\Category;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -13,7 +16,10 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return view('movies.index');
+        return view('movies.index', [
+            'categories' => Category::pluck('name', 'id'),
+            'movies' => Movie::latest()->paginate(),
+        ]);
     }
 
     /**
@@ -32,9 +38,13 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateMovieRequest $request)
     {
-        //
+        $movie = new Movie($request->validated());
+        $movie->img = $request->file('img')->store('image');
+        $movie->save();
+
+        return redirect()->route('movies.index')->with('status', 'Pelicula registrada con éxito');
     }
 
     /**
