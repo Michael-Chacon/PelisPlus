@@ -39,7 +39,7 @@
       		</div>
           <div class="mb-3">
             <label for="title" class="form-label">Seleccione una categoria</label>
-            <select class="form-select" aria-label="Default select example" name="category">
+            <select class="form-select" aria-label="Default select example" name="category_id">
               <option ></option>
               @forelse($categories as $id => $title)
               <option value="{{ $id }}">{{ $title }}</option>

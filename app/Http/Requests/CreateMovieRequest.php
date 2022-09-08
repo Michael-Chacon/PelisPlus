@@ -32,6 +32,10 @@ class CreateMovieRequest extends FormRequest
                 'required',
                 Rule::unique('movies')->ignore($this->route('movie')),
             ],
+            'category_id' => [
+                'required',
+                'exists:categories,id',
+            ],
             'img' => ['required', 'image'],
         ];
     }
