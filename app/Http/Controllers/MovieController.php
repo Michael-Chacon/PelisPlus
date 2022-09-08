@@ -6,6 +6,8 @@ use App\Http\Requests\CreateMovieRequest;
 use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class MovieController extends Controller
 {
@@ -44,6 +46,9 @@ class MovieController extends Controller
         $movie->img = $request->file('img')->store('image');
         $movie->save();
 
+        $image = Image::make(Storage::get($movie->img));
+        $image->widen(400)->limitColors(255)->encode();
+        Storage::put($movie->img, (string) $image);
         return redirect()->route('movies.index')->with('status', 'Pelicula registrada con éxito');
     }
 

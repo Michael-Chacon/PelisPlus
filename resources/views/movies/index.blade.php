@@ -21,7 +21,7 @@
     @endforelse
 </section>
 
-    {{ $movies->links() }}
+    {{ $movies->links(); }}
 <!-- Modal -->
 <div class="modal fade" id="crearPelicula" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
