@@ -6,8 +6,8 @@ use App\Http\Requests\CreateMovieRequest;
 use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use App\Events\MovieSaved;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class MovieController extends Controller
 {
@@ -20,7 +20,7 @@ class MovieController extends Controller
     {
         return view('movies.index', [
             'categories' => Category::pluck('name', 'id'),
-            'movies' => Movie::latest()->paginate(),
+            'movies' => Movie::with('Category')->latest()->paginate(),
         ]);
     }
 
@@ -46,9 +46,8 @@ class MovieController extends Controller
         $movie->img = $request->file('img')->store('image');
         $movie->save();
 
-        $image = Image::make(Storage::get($movie->img));
-        $image->widen(400)->limitColors(255)->encode();
-        Storage::put($movie->img, (string) $image);
+        MovieSaved::dispatch($movie);
+
         return redirect()->route('movies.index')->with('status', 'Pelicula registrada con éxito');
     }
 
@@ -92,8 +91,10 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movie $movie)
     {
-        //
+        Storage::delete($movie->img);
+        $movie->delete();
+        return redirect()->route('movies.index')->with('status', 'Pelicula eliminada con éxito');
     }
 }

@@ -13,6 +13,12 @@
         <h5 class="card-title">{{ $pelicula->title }}</h5>
         <p class="card-text">{{ $pelicula->description}}</p>
         <a href="#" class="btn btn-success btn-sm">detalles</a>
+        <a href="#" class="btn btn-primary btn-sm">Actualizar</a>
+        <form action="{{ route('movies.destroy', $pelicula) }}" method="post">
+          @csrf @method('DELETE')
+        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+        </form>
+        <a href="{{ route('categories.show', $pelicula->category)}}" class="badge badge-secondary text-dark">{{$pelicula->category->name}}</a>
       </div>
     </div>
   </section>
