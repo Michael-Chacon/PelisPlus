@@ -2,7 +2,9 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center">
 	<h1>Listado de peliculas</h1>
+  @can('create', $movie)
 	<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearPelicula">Crear pelicula</button>
+  @endcan
 </div>
 <section class="row mb-5">
   @forelse($movies as $pelicula)
@@ -13,11 +15,13 @@
         <h5 class="card-title">{{ $pelicula->title }}</h5>
         <p class="card-text">{{ $pelicula->description}}</p>
         <a href="#" class="btn btn-success btn-sm">detalles</a>
+        @can('create', $movie)
         <a href=" {{ route('movies.edit', $pelicula) }} " class="btn btn-primary btn-sm">Actualizar</a>
         <form action="{{ route('movies.destroy', $pelicula) }}" method="post">
           @csrf @method('DELETE')
         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
         </form>
+        @endcan
         <a href="{{ route('categories.show', $pelicula->category)}}" class="badge badge-secondary text-dark">{{$pelicula->category->name}}</a>
       </div>
     </div>

@@ -19,6 +19,7 @@ class MovieController extends Controller
     public function index()
     {
         return view('movies.index', [
+            'movie' => new Movie,
             'categories' => Category::pluck('name', 'id'),
             'movies' => Movie::with('Category')->latest()->paginate(),
         ]);
@@ -43,6 +44,7 @@ class MovieController extends Controller
     public function store(CreateMovieRequest $request)
     {
         $movie = new Movie($request->validated());
+        $this->authorize('create', $movie);
         $movie->img = $request->file('img')->store('image');
         $movie->save();
 
@@ -85,6 +87,7 @@ class MovieController extends Controller
      */
     public function update(Movie $movie, CreateMovieRequest $request)
     {
+        $this->authorize('create', $movie);
         if($request->hasFile('img')){
             Storage::delete($movie->img);
             $movie->fill($request->validated());
@@ -105,6 +108,7 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
+        $this->authorize('delete', $movie);
         Storage::delete($movie->img);
         $movie->delete();
         return redirect()->route('movies.index')->with('status', 'Pelicula eliminada con éxito');
