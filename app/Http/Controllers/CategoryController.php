@@ -48,9 +48,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return view('movies.index',[
+            'categories' => $category,
+            'movies' => $category->Movie()->with('Category')->latest()->paginate()
+        ]);
     }
 
     /**

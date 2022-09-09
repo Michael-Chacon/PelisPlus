@@ -8,12 +8,12 @@
   @forelse($movies as $pelicula)
   <section class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
     <div class="card">
-      <img src="/storage/{{ $pelicula->img }}" class="card-img-top" alt="{{ $pelicula->title }}">
+      <img src="/storage/{{ $pelicula->img }}" class="card-img-top" alt="{{ $pelicula->title }}" style="height:300px; object-fit: cover;">
       <div class="card-body">
         <h5 class="card-title">{{ $pelicula->title }}</h5>
         <p class="card-text">{{ $pelicula->description}}</p>
         <a href="#" class="btn btn-success btn-sm">detalles</a>
-        <a href="#" class="btn btn-primary btn-sm">Actualizar</a>
+        <a href=" {{ route('movies.edit', $pelicula) }} " class="btn btn-primary btn-sm">Actualizar</a>
         <form action="{{ route('movies.destroy', $pelicula) }}" method="post">
           @csrf @method('DELETE')
         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>

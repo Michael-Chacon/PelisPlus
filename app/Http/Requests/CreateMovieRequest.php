@@ -36,7 +36,10 @@ class CreateMovieRequest extends FormRequest
                 'required',
                 'exists:categories,id',
             ],
-            'img' => ['required', 'image'],
+            'img' => [
+                $this->route('movie')? 'nullable': 'required',
+                 'image',
+            ],
         ];
     }
 }

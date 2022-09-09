@@ -68,21 +68,33 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Movie $movie)
     {
-        //
+        return view('movies.update', [
+            'movie' => $movie,
+            'categories' => Category::pluck('name', 'id'),
+        ]);
     }
 
-    /**
+    /**j
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Movie $movie, CreateMovieRequest $request)
     {
-        //
+        if($request->hasFile('img')){
+            Storage::delete($movie->img);
+            $movie->fill($request->validated());
+            $movie->img = $request->file('img')->store('image');
+            $movie->save();
+            moviesaved::dispatch($movie);
+        }else{
+            $movie->update(array_filter($request->validated()));
+        }
+        return redirect()->route('movies.index')->with('status', 'Datos actulizados con exito');
     }
 
     /**
